@@ -7,6 +7,7 @@ This is repository is intended to create an AlloyDB database export using Google
 ```
 gcloud config set project $PROJECT_ID
 gcloud services enable alloydb.googleapis.com
+gcloud services enable servicenetworking.googleapis.com
 ```
 
 2. Create a VPC for your AlloyDB instance (skip this step if you already have a VPC)
