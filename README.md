@@ -28,7 +28,22 @@ gcloud compute firewall-rules create allow-ssh-rdp-icmp \
 --network alloydb-vpc --allow tcp:22,tcp:3389,icmp
 ```
 
-3. Create the AlloyDB cluster and instance
+3. Create a Private Service Access
+```
+gcloud compute addresses create alloydb-reserved \
+    --global \
+    --purpose=VPC_PEERING \
+    --prefix-length=16 \
+    --description="AlloyDB Reserved Range" \
+    --network=alloydb-vpc
+
+gcloud services vpc-peerings connect \
+    --service=servicenetworking.googleapis.com \
+    --ranges=alloydb-reserved \
+    --network=alloydb-vpc
+```
+
+5. Create the AlloyDB cluster and instance
 ```
 gcloud alloydb clusters create alloydb-cluster-demo \
     --password=Helloworld \
